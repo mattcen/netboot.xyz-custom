@@ -4,9 +4,16 @@
 ###
 
 :start
-echo Hello mattcen!
-sleep 10
-goto custom_exit
+
+:debian-12-gnome-squash
+set squash_url ${live_endpoint}/debian-squash/releases/download/12.6.0-d2c07a8a/filesystem.squashfs
+set kernel_url ${live_endpoint}/debian-core-12/releases/download/12.6.0-e814dabe/
+
+:boot
+imgfree
+kernel ${kernel_url}vmlinuz boot=live fetch=${squash_url} initrd=initrd.magic ${cmdline}
+initrd ${kernel_url}initrd
+boot
 
 :custom_exit
 exit 0
